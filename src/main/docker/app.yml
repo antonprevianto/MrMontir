@@ -1,0 +1,19 @@
+version: '2'
+services:
+    mrmontir-app:
+        image: mrmontir
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://mrmontir-mysql:3306/mrmontir?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=mrmontir-elasticsearch:9300
+        ports:
+            - 8080:8080
+    mrmontir-mysql:
+        extends:
+            file: mysql.yml
+            service: mrmontir-mysql
+    mrmontir-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: mrmontir-elasticsearch
